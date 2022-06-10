@@ -10215,9 +10215,13 @@ Object.defineProperty(exports, "zipWith", {
 
 var _rxjs = require("rxjs");
 
-const observable = new _rxjs.fromEvent(document, "click");
+const observable = new _rxjs.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-const subscription = observable.subscribe(console.log);
+const subscription = observable.subscribe({
+  next: value => console.log(value),
+  complete: () => console.log("complete")
+});
+console.log("hello");
 },{"rxjs":6}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
