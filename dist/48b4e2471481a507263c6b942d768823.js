@@ -11698,8 +11698,12 @@ var _operators = require("rxjs/operators");
 var _ajax = require("rxjs/ajax");
 
 const button = document.querySelector("#btn");
-const observable = (0, _rxjs.fromEvent)(button, "click").pipe((0, _operators.mergeMap)(() => {
-  return (0, _rxjs.interval)(1000).pipe((0, _operators.take)(5));
+const observable = (0, _rxjs.fromEvent)(button, "click").pipe((0, _operators.switchMap)(() => {
+  return (0, _rxjs.interval)(1000).pipe((0, _operators.take)(5), (0, _operators.tap)({
+    complete() {
+      console.log("complete");
+    }
+  }));
 }));
 
 const subscription = observable.subscribe({
