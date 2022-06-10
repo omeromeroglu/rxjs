@@ -1,6 +1,6 @@
-import { interval } from "rxjs"
+import { timer } from "rxjs"
 
-const observable = new interval(1000)
+const observable = new timer(0 ,1000)
 
 
 const subscription = observable.subscribe(
