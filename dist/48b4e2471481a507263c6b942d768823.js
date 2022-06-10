@@ -10210,19 +10210,1084 @@ Object.defineProperty(exports, "zipWith", {
     return _zipWith.zipWith;
   }
 });
-},{"./internal/Observable":8,"./internal/observable/ConnectableObservable":20,"./internal/symbol/observable":22,"./internal/observable/dom/animationFrames":169,"./internal/Subject":9,"./internal/BehaviorSubject":7,"./internal/ReplaySubject":10,"./internal/AsyncSubject":11,"./internal/scheduler/asap":25,"./internal/scheduler/async":23,"./internal/scheduler/queue":21,"./internal/scheduler/animationFrame":24,"./internal/scheduler/VirtualTimeScheduler":27,"./internal/Scheduler":14,"./internal/Subscription":12,"./internal/Subscriber":13,"./internal/Notification":16,"./internal/util/pipe":26,"./internal/util/noop":29,"./internal/util/identity":28,"./internal/util/isObservable":30,"./internal/lastValueFrom":17,"./internal/firstValueFrom":15,"./internal/util/ArgumentOutOfRangeError":32,"./internal/util/EmptyError":35,"./internal/util/NotFoundError":31,"./internal/util/ObjectUnsubscribedError":36,"./internal/util/SequenceError":34,"./internal/operators/timeout":42,"./internal/util/UnsubscriptionError":38,"./internal/observable/bindCallback":33,"./internal/observable/bindNodeCallback":40,"./internal/observable/combineLatest":37,"./internal/observable/concat":39,"./internal/observable/connectable":46,"./internal/observable/defer":41,"./internal/observable/empty":43,"./internal/observable/forkJoin":44,"./internal/observable/from":47,"./internal/observable/fromEvent":49,"./internal/observable/fromEventPattern":45,"./internal/observable/generate":50,"./internal/observable/iif":48,"./internal/observable/interval":51,"./internal/observable/merge":52,"./internal/observable/never":54,"./internal/observable/of":55,"./internal/observable/onErrorResumeNext":57,"./internal/observable/pairs":53,"./internal/observable/partition":56,"./internal/observable/race":58,"./internal/observable/range":59,"./internal/observable/throwError":63,"./internal/observable/timer":60,"./internal/observable/using":62,"./internal/observable/zip":61,"./internal/scheduled/scheduled":68,"./internal/types":19,"./internal/config":18,"./internal/operators/audit":65,"./internal/operators/auditTime":64,"./internal/operators/buffer":66,"./internal/operators/bufferCount":69,"./internal/operators/bufferTime":70,"./internal/operators/bufferToggle":67,"./internal/operators/bufferWhen":71,"./internal/operators/catchError":72,"./internal/operators/combineAll":74,"./internal/operators/combineLatestAll":73,"./internal/operators/combineLatestWith":77,"./internal/operators/concatAll":75,"./internal/operators/concatMap":76,"./internal/operators/concatMapTo":82,"./internal/operators/concatWith":78,"./internal/operators/connect":80,"./internal/operators/count":79,"./internal/operators/debounce":81,"./internal/operators/debounceTime":85,"./internal/operators/defaultIfEmpty":83,"./internal/operators/delay":86,"./internal/operators/delayWhen":84,"./internal/operators/dematerialize":90,"./internal/operators/distinct":87,"./internal/operators/distinctUntilChanged":88,"./internal/operators/distinctUntilKeyChanged":89,"./internal/operators/elementAt":92,"./internal/operators/endWith":91,"./internal/operators/every":94,"./internal/operators/exhaust":93,"./internal/operators/exhaustAll":95,"./internal/operators/exhaustMap":98,"./internal/operators/expand":97,"./internal/operators/filter":100,"./internal/operators/finalize":102,"./internal/operators/find":96,"./internal/operators/findIndex":99,"./internal/operators/first":101,"./internal/operators/groupBy":104,"./internal/operators/ignoreElements":103,"./internal/operators/isEmpty":105,"./internal/operators/last":107,"./internal/operators/map":106,"./internal/operators/mapTo":108,"./internal/operators/materialize":109,"./internal/operators/max":112,"./internal/operators/mergeAll":111,"./internal/operators/flatMap":110,"./internal/operators/mergeMap":114,"./internal/operators/mergeMapTo":113,"./internal/operators/mergeScan":115,"./internal/operators/mergeWith":116,"./internal/operators/min":120,"./internal/operators/multicast":117,"./internal/operators/observeOn":119,"./internal/operators/pairwise":121,"./internal/operators/pluck":118,"./internal/operators/publish":122,"./internal/operators/publishBehavior":123,"./internal/operators/publishLast":126,"./internal/operators/publishReplay":125,"./internal/operators/raceWith":128,"./internal/operators/reduce":124,"./internal/operators/repeat":129,"./internal/operators/repeatWhen":127,"./internal/operators/retry":130,"./internal/operators/retryWhen":133,"./internal/operators/refCount":132,"./internal/operators/sample":131,"./internal/operators/sampleTime":137,"./internal/operators/scan":134,"./internal/operators/sequenceEqual":136,"./internal/operators/share":135,"./internal/operators/shareReplay":138,"./internal/operators/single":140,"./internal/operators/skip":141,"./internal/operators/skipLast":139,"./internal/operators/skipUntil":143,"./internal/operators/skipWhile":142,"./internal/operators/startWith":145,"./internal/operators/subscribeOn":146,"./internal/operators/switchAll":144,"./internal/operators/switchMap":149,"./internal/operators/switchMapTo":147,"./internal/operators/switchScan":148,"./internal/operators/take":151,"./internal/operators/takeLast":152,"./internal/operators/takeUntil":154,"./internal/operators/takeWhile":150,"./internal/operators/tap":153,"./internal/operators/throttle":155,"./internal/operators/throttleTime":157,"./internal/operators/throwIfEmpty":156,"./internal/operators/timeInterval":159,"./internal/operators/timeoutWith":164,"./internal/operators/timestamp":158,"./internal/operators/toArray":163,"./internal/operators/window":161,"./internal/operators/windowCount":160,"./internal/operators/windowTime":162,"./internal/operators/windowToggle":165,"./internal/operators/windowWhen":166,"./internal/operators/withLatestFrom":168,"./internal/operators/zipAll":167,"./internal/operators/zipWith":170}],2:[function(require,module,exports) {
+},{"./internal/Observable":8,"./internal/observable/ConnectableObservable":20,"./internal/symbol/observable":22,"./internal/observable/dom/animationFrames":169,"./internal/Subject":9,"./internal/BehaviorSubject":7,"./internal/ReplaySubject":10,"./internal/AsyncSubject":11,"./internal/scheduler/asap":25,"./internal/scheduler/async":23,"./internal/scheduler/queue":21,"./internal/scheduler/animationFrame":24,"./internal/scheduler/VirtualTimeScheduler":27,"./internal/Scheduler":14,"./internal/Subscription":12,"./internal/Subscriber":13,"./internal/Notification":16,"./internal/util/pipe":26,"./internal/util/noop":29,"./internal/util/identity":28,"./internal/util/isObservable":30,"./internal/lastValueFrom":17,"./internal/firstValueFrom":15,"./internal/util/ArgumentOutOfRangeError":32,"./internal/util/EmptyError":35,"./internal/util/NotFoundError":31,"./internal/util/ObjectUnsubscribedError":36,"./internal/util/SequenceError":34,"./internal/operators/timeout":42,"./internal/util/UnsubscriptionError":38,"./internal/observable/bindCallback":33,"./internal/observable/bindNodeCallback":40,"./internal/observable/combineLatest":37,"./internal/observable/concat":39,"./internal/observable/connectable":46,"./internal/observable/defer":41,"./internal/observable/empty":43,"./internal/observable/forkJoin":44,"./internal/observable/from":47,"./internal/observable/fromEvent":49,"./internal/observable/fromEventPattern":45,"./internal/observable/generate":50,"./internal/observable/iif":48,"./internal/observable/interval":51,"./internal/observable/merge":52,"./internal/observable/never":54,"./internal/observable/of":55,"./internal/observable/onErrorResumeNext":57,"./internal/observable/pairs":53,"./internal/observable/partition":56,"./internal/observable/race":58,"./internal/observable/range":59,"./internal/observable/throwError":63,"./internal/observable/timer":60,"./internal/observable/using":62,"./internal/observable/zip":61,"./internal/scheduled/scheduled":68,"./internal/types":19,"./internal/config":18,"./internal/operators/audit":65,"./internal/operators/auditTime":64,"./internal/operators/buffer":66,"./internal/operators/bufferCount":69,"./internal/operators/bufferTime":70,"./internal/operators/bufferToggle":67,"./internal/operators/bufferWhen":71,"./internal/operators/catchError":72,"./internal/operators/combineAll":74,"./internal/operators/combineLatestAll":73,"./internal/operators/combineLatestWith":77,"./internal/operators/concatAll":75,"./internal/operators/concatMap":76,"./internal/operators/concatMapTo":82,"./internal/operators/concatWith":78,"./internal/operators/connect":80,"./internal/operators/count":79,"./internal/operators/debounce":81,"./internal/operators/debounceTime":85,"./internal/operators/defaultIfEmpty":83,"./internal/operators/delay":86,"./internal/operators/delayWhen":84,"./internal/operators/dematerialize":90,"./internal/operators/distinct":87,"./internal/operators/distinctUntilChanged":88,"./internal/operators/distinctUntilKeyChanged":89,"./internal/operators/elementAt":92,"./internal/operators/endWith":91,"./internal/operators/every":94,"./internal/operators/exhaust":93,"./internal/operators/exhaustAll":95,"./internal/operators/exhaustMap":98,"./internal/operators/expand":97,"./internal/operators/filter":100,"./internal/operators/finalize":102,"./internal/operators/find":96,"./internal/operators/findIndex":99,"./internal/operators/first":101,"./internal/operators/groupBy":104,"./internal/operators/ignoreElements":103,"./internal/operators/isEmpty":105,"./internal/operators/last":107,"./internal/operators/map":106,"./internal/operators/mapTo":108,"./internal/operators/materialize":109,"./internal/operators/max":112,"./internal/operators/mergeAll":111,"./internal/operators/flatMap":110,"./internal/operators/mergeMap":114,"./internal/operators/mergeMapTo":113,"./internal/operators/mergeScan":115,"./internal/operators/mergeWith":116,"./internal/operators/min":120,"./internal/operators/multicast":117,"./internal/operators/observeOn":119,"./internal/operators/pairwise":121,"./internal/operators/pluck":118,"./internal/operators/publish":122,"./internal/operators/publishBehavior":123,"./internal/operators/publishLast":126,"./internal/operators/publishReplay":125,"./internal/operators/raceWith":128,"./internal/operators/reduce":124,"./internal/operators/repeat":129,"./internal/operators/repeatWhen":127,"./internal/operators/retry":130,"./internal/operators/retryWhen":133,"./internal/operators/refCount":132,"./internal/operators/sample":131,"./internal/operators/sampleTime":137,"./internal/operators/scan":134,"./internal/operators/sequenceEqual":136,"./internal/operators/share":135,"./internal/operators/shareReplay":138,"./internal/operators/single":140,"./internal/operators/skip":141,"./internal/operators/skipLast":139,"./internal/operators/skipUntil":143,"./internal/operators/skipWhile":142,"./internal/operators/startWith":145,"./internal/operators/subscribeOn":146,"./internal/operators/switchAll":144,"./internal/operators/switchMap":149,"./internal/operators/switchMapTo":147,"./internal/operators/switchScan":148,"./internal/operators/take":151,"./internal/operators/takeLast":152,"./internal/operators/takeUntil":154,"./internal/operators/takeWhile":150,"./internal/operators/tap":153,"./internal/operators/throttle":155,"./internal/operators/throttleTime":157,"./internal/operators/throwIfEmpty":156,"./internal/operators/timeInterval":159,"./internal/operators/timeoutWith":164,"./internal/operators/timestamp":158,"./internal/operators/toArray":163,"./internal/operators/window":161,"./internal/operators/windowCount":160,"./internal/operators/windowTime":162,"./internal/operators/windowToggle":165,"./internal/operators/windowWhen":166,"./internal/operators/withLatestFrom":168,"./internal/operators/zipAll":167,"./internal/operators/zipWith":170}],232:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.partition = partition;
+
+var _not = require("../util/not");
+
+var _filter = require("./filter");
+
+function partition(predicate, thisArg) {
+  return function (source) {
+    return [(0, _filter.filter)(predicate, thisArg)(source), (0, _filter.filter)((0, _not.not)(predicate, thisArg))(source)];
+  };
+}
+//# sourceMappingURL=partition.js.map
+},{"../util/not":202,"./filter":100}],233:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.race = race;
+
+var _tslib = require("tslib");
+
+var _argsOrArgArray = require("../util/argsOrArgArray");
+
+var _raceWith = require("./raceWith");
+
+function race() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  return _raceWith.raceWith.apply(void 0, (0, _tslib.__spreadArray)([], (0, _tslib.__read)((0, _argsOrArgArray.argsOrArgArray)(args))));
+}
+//# sourceMappingURL=race.js.map
+},{"tslib":230,"../util/argsOrArgArray":200,"./raceWith":128}],231:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _audit = require("../internal/operators/audit");
+
+Object.defineProperty(exports, "audit", {
+  enumerable: true,
+  get: function () {
+    return _audit.audit;
+  }
+});
+
+var _auditTime = require("../internal/operators/auditTime");
+
+Object.defineProperty(exports, "auditTime", {
+  enumerable: true,
+  get: function () {
+    return _auditTime.auditTime;
+  }
+});
+
+var _buffer = require("../internal/operators/buffer");
+
+Object.defineProperty(exports, "buffer", {
+  enumerable: true,
+  get: function () {
+    return _buffer.buffer;
+  }
+});
+
+var _bufferCount = require("../internal/operators/bufferCount");
+
+Object.defineProperty(exports, "bufferCount", {
+  enumerable: true,
+  get: function () {
+    return _bufferCount.bufferCount;
+  }
+});
+
+var _bufferTime = require("../internal/operators/bufferTime");
+
+Object.defineProperty(exports, "bufferTime", {
+  enumerable: true,
+  get: function () {
+    return _bufferTime.bufferTime;
+  }
+});
+
+var _bufferToggle = require("../internal/operators/bufferToggle");
+
+Object.defineProperty(exports, "bufferToggle", {
+  enumerable: true,
+  get: function () {
+    return _bufferToggle.bufferToggle;
+  }
+});
+
+var _bufferWhen = require("../internal/operators/bufferWhen");
+
+Object.defineProperty(exports, "bufferWhen", {
+  enumerable: true,
+  get: function () {
+    return _bufferWhen.bufferWhen;
+  }
+});
+
+var _catchError = require("../internal/operators/catchError");
+
+Object.defineProperty(exports, "catchError", {
+  enumerable: true,
+  get: function () {
+    return _catchError.catchError;
+  }
+});
+
+var _combineAll = require("../internal/operators/combineAll");
+
+Object.defineProperty(exports, "combineAll", {
+  enumerable: true,
+  get: function () {
+    return _combineAll.combineAll;
+  }
+});
+
+var _combineLatestAll = require("../internal/operators/combineLatestAll");
+
+Object.defineProperty(exports, "combineLatestAll", {
+  enumerable: true,
+  get: function () {
+    return _combineLatestAll.combineLatestAll;
+  }
+});
+
+var _combineLatest = require("../internal/operators/combineLatest");
+
+Object.defineProperty(exports, "combineLatest", {
+  enumerable: true,
+  get: function () {
+    return _combineLatest.combineLatest;
+  }
+});
+
+var _combineLatestWith = require("../internal/operators/combineLatestWith");
+
+Object.defineProperty(exports, "combineLatestWith", {
+  enumerable: true,
+  get: function () {
+    return _combineLatestWith.combineLatestWith;
+  }
+});
+
+var _concat = require("../internal/operators/concat");
+
+Object.defineProperty(exports, "concat", {
+  enumerable: true,
+  get: function () {
+    return _concat.concat;
+  }
+});
+
+var _concatAll = require("../internal/operators/concatAll");
+
+Object.defineProperty(exports, "concatAll", {
+  enumerable: true,
+  get: function () {
+    return _concatAll.concatAll;
+  }
+});
+
+var _concatMap = require("../internal/operators/concatMap");
+
+Object.defineProperty(exports, "concatMap", {
+  enumerable: true,
+  get: function () {
+    return _concatMap.concatMap;
+  }
+});
+
+var _concatMapTo = require("../internal/operators/concatMapTo");
+
+Object.defineProperty(exports, "concatMapTo", {
+  enumerable: true,
+  get: function () {
+    return _concatMapTo.concatMapTo;
+  }
+});
+
+var _concatWith = require("../internal/operators/concatWith");
+
+Object.defineProperty(exports, "concatWith", {
+  enumerable: true,
+  get: function () {
+    return _concatWith.concatWith;
+  }
+});
+
+var _connect = require("../internal/operators/connect");
+
+Object.defineProperty(exports, "connect", {
+  enumerable: true,
+  get: function () {
+    return _connect.connect;
+  }
+});
+
+var _count = require("../internal/operators/count");
+
+Object.defineProperty(exports, "count", {
+  enumerable: true,
+  get: function () {
+    return _count.count;
+  }
+});
+
+var _debounce = require("../internal/operators/debounce");
+
+Object.defineProperty(exports, "debounce", {
+  enumerable: true,
+  get: function () {
+    return _debounce.debounce;
+  }
+});
+
+var _debounceTime = require("../internal/operators/debounceTime");
+
+Object.defineProperty(exports, "debounceTime", {
+  enumerable: true,
+  get: function () {
+    return _debounceTime.debounceTime;
+  }
+});
+
+var _defaultIfEmpty = require("../internal/operators/defaultIfEmpty");
+
+Object.defineProperty(exports, "defaultIfEmpty", {
+  enumerable: true,
+  get: function () {
+    return _defaultIfEmpty.defaultIfEmpty;
+  }
+});
+
+var _delay = require("../internal/operators/delay");
+
+Object.defineProperty(exports, "delay", {
+  enumerable: true,
+  get: function () {
+    return _delay.delay;
+  }
+});
+
+var _delayWhen = require("../internal/operators/delayWhen");
+
+Object.defineProperty(exports, "delayWhen", {
+  enumerable: true,
+  get: function () {
+    return _delayWhen.delayWhen;
+  }
+});
+
+var _dematerialize = require("../internal/operators/dematerialize");
+
+Object.defineProperty(exports, "dematerialize", {
+  enumerable: true,
+  get: function () {
+    return _dematerialize.dematerialize;
+  }
+});
+
+var _distinct = require("../internal/operators/distinct");
+
+Object.defineProperty(exports, "distinct", {
+  enumerable: true,
+  get: function () {
+    return _distinct.distinct;
+  }
+});
+
+var _distinctUntilChanged = require("../internal/operators/distinctUntilChanged");
+
+Object.defineProperty(exports, "distinctUntilChanged", {
+  enumerable: true,
+  get: function () {
+    return _distinctUntilChanged.distinctUntilChanged;
+  }
+});
+
+var _distinctUntilKeyChanged = require("../internal/operators/distinctUntilKeyChanged");
+
+Object.defineProperty(exports, "distinctUntilKeyChanged", {
+  enumerable: true,
+  get: function () {
+    return _distinctUntilKeyChanged.distinctUntilKeyChanged;
+  }
+});
+
+var _elementAt = require("../internal/operators/elementAt");
+
+Object.defineProperty(exports, "elementAt", {
+  enumerable: true,
+  get: function () {
+    return _elementAt.elementAt;
+  }
+});
+
+var _endWith = require("../internal/operators/endWith");
+
+Object.defineProperty(exports, "endWith", {
+  enumerable: true,
+  get: function () {
+    return _endWith.endWith;
+  }
+});
+
+var _every = require("../internal/operators/every");
+
+Object.defineProperty(exports, "every", {
+  enumerable: true,
+  get: function () {
+    return _every.every;
+  }
+});
+
+var _exhaust = require("../internal/operators/exhaust");
+
+Object.defineProperty(exports, "exhaust", {
+  enumerable: true,
+  get: function () {
+    return _exhaust.exhaust;
+  }
+});
+
+var _exhaustAll = require("../internal/operators/exhaustAll");
+
+Object.defineProperty(exports, "exhaustAll", {
+  enumerable: true,
+  get: function () {
+    return _exhaustAll.exhaustAll;
+  }
+});
+
+var _exhaustMap = require("../internal/operators/exhaustMap");
+
+Object.defineProperty(exports, "exhaustMap", {
+  enumerable: true,
+  get: function () {
+    return _exhaustMap.exhaustMap;
+  }
+});
+
+var _expand = require("../internal/operators/expand");
+
+Object.defineProperty(exports, "expand", {
+  enumerable: true,
+  get: function () {
+    return _expand.expand;
+  }
+});
+
+var _filter = require("../internal/operators/filter");
+
+Object.defineProperty(exports, "filter", {
+  enumerable: true,
+  get: function () {
+    return _filter.filter;
+  }
+});
+
+var _finalize = require("../internal/operators/finalize");
+
+Object.defineProperty(exports, "finalize", {
+  enumerable: true,
+  get: function () {
+    return _finalize.finalize;
+  }
+});
+
+var _find = require("../internal/operators/find");
+
+Object.defineProperty(exports, "find", {
+  enumerable: true,
+  get: function () {
+    return _find.find;
+  }
+});
+
+var _findIndex = require("../internal/operators/findIndex");
+
+Object.defineProperty(exports, "findIndex", {
+  enumerable: true,
+  get: function () {
+    return _findIndex.findIndex;
+  }
+});
+
+var _first = require("../internal/operators/first");
+
+Object.defineProperty(exports, "first", {
+  enumerable: true,
+  get: function () {
+    return _first.first;
+  }
+});
+
+var _groupBy = require("../internal/operators/groupBy");
+
+Object.defineProperty(exports, "groupBy", {
+  enumerable: true,
+  get: function () {
+    return _groupBy.groupBy;
+  }
+});
+
+var _ignoreElements = require("../internal/operators/ignoreElements");
+
+Object.defineProperty(exports, "ignoreElements", {
+  enumerable: true,
+  get: function () {
+    return _ignoreElements.ignoreElements;
+  }
+});
+
+var _isEmpty = require("../internal/operators/isEmpty");
+
+Object.defineProperty(exports, "isEmpty", {
+  enumerable: true,
+  get: function () {
+    return _isEmpty.isEmpty;
+  }
+});
+
+var _last = require("../internal/operators/last");
+
+Object.defineProperty(exports, "last", {
+  enumerable: true,
+  get: function () {
+    return _last.last;
+  }
+});
+
+var _map = require("../internal/operators/map");
+
+Object.defineProperty(exports, "map", {
+  enumerable: true,
+  get: function () {
+    return _map.map;
+  }
+});
+
+var _mapTo = require("../internal/operators/mapTo");
+
+Object.defineProperty(exports, "mapTo", {
+  enumerable: true,
+  get: function () {
+    return _mapTo.mapTo;
+  }
+});
+
+var _materialize = require("../internal/operators/materialize");
+
+Object.defineProperty(exports, "materialize", {
+  enumerable: true,
+  get: function () {
+    return _materialize.materialize;
+  }
+});
+
+var _max = require("../internal/operators/max");
+
+Object.defineProperty(exports, "max", {
+  enumerable: true,
+  get: function () {
+    return _max.max;
+  }
+});
+
+var _merge = require("../internal/operators/merge");
+
+Object.defineProperty(exports, "merge", {
+  enumerable: true,
+  get: function () {
+    return _merge.merge;
+  }
+});
+
+var _mergeAll = require("../internal/operators/mergeAll");
+
+Object.defineProperty(exports, "mergeAll", {
+  enumerable: true,
+  get: function () {
+    return _mergeAll.mergeAll;
+  }
+});
+
+var _flatMap = require("../internal/operators/flatMap");
+
+Object.defineProperty(exports, "flatMap", {
+  enumerable: true,
+  get: function () {
+    return _flatMap.flatMap;
+  }
+});
+
+var _mergeMap = require("../internal/operators/mergeMap");
+
+Object.defineProperty(exports, "mergeMap", {
+  enumerable: true,
+  get: function () {
+    return _mergeMap.mergeMap;
+  }
+});
+
+var _mergeMapTo = require("../internal/operators/mergeMapTo");
+
+Object.defineProperty(exports, "mergeMapTo", {
+  enumerable: true,
+  get: function () {
+    return _mergeMapTo.mergeMapTo;
+  }
+});
+
+var _mergeScan = require("../internal/operators/mergeScan");
+
+Object.defineProperty(exports, "mergeScan", {
+  enumerable: true,
+  get: function () {
+    return _mergeScan.mergeScan;
+  }
+});
+
+var _mergeWith = require("../internal/operators/mergeWith");
+
+Object.defineProperty(exports, "mergeWith", {
+  enumerable: true,
+  get: function () {
+    return _mergeWith.mergeWith;
+  }
+});
+
+var _min = require("../internal/operators/min");
+
+Object.defineProperty(exports, "min", {
+  enumerable: true,
+  get: function () {
+    return _min.min;
+  }
+});
+
+var _multicast = require("../internal/operators/multicast");
+
+Object.defineProperty(exports, "multicast", {
+  enumerable: true,
+  get: function () {
+    return _multicast.multicast;
+  }
+});
+
+var _observeOn = require("../internal/operators/observeOn");
+
+Object.defineProperty(exports, "observeOn", {
+  enumerable: true,
+  get: function () {
+    return _observeOn.observeOn;
+  }
+});
+
+var _onErrorResumeNext = require("../internal/operators/onErrorResumeNext");
+
+Object.defineProperty(exports, "onErrorResumeNext", {
+  enumerable: true,
+  get: function () {
+    return _onErrorResumeNext.onErrorResumeNext;
+  }
+});
+
+var _pairwise = require("../internal/operators/pairwise");
+
+Object.defineProperty(exports, "pairwise", {
+  enumerable: true,
+  get: function () {
+    return _pairwise.pairwise;
+  }
+});
+
+var _partition = require("../internal/operators/partition");
+
+Object.defineProperty(exports, "partition", {
+  enumerable: true,
+  get: function () {
+    return _partition.partition;
+  }
+});
+
+var _pluck = require("../internal/operators/pluck");
+
+Object.defineProperty(exports, "pluck", {
+  enumerable: true,
+  get: function () {
+    return _pluck.pluck;
+  }
+});
+
+var _publish = require("../internal/operators/publish");
+
+Object.defineProperty(exports, "publish", {
+  enumerable: true,
+  get: function () {
+    return _publish.publish;
+  }
+});
+
+var _publishBehavior = require("../internal/operators/publishBehavior");
+
+Object.defineProperty(exports, "publishBehavior", {
+  enumerable: true,
+  get: function () {
+    return _publishBehavior.publishBehavior;
+  }
+});
+
+var _publishLast = require("../internal/operators/publishLast");
+
+Object.defineProperty(exports, "publishLast", {
+  enumerable: true,
+  get: function () {
+    return _publishLast.publishLast;
+  }
+});
+
+var _publishReplay = require("../internal/operators/publishReplay");
+
+Object.defineProperty(exports, "publishReplay", {
+  enumerable: true,
+  get: function () {
+    return _publishReplay.publishReplay;
+  }
+});
+
+var _race = require("../internal/operators/race");
+
+Object.defineProperty(exports, "race", {
+  enumerable: true,
+  get: function () {
+    return _race.race;
+  }
+});
+
+var _raceWith = require("../internal/operators/raceWith");
+
+Object.defineProperty(exports, "raceWith", {
+  enumerable: true,
+  get: function () {
+    return _raceWith.raceWith;
+  }
+});
+
+var _reduce = require("../internal/operators/reduce");
+
+Object.defineProperty(exports, "reduce", {
+  enumerable: true,
+  get: function () {
+    return _reduce.reduce;
+  }
+});
+
+var _repeat = require("../internal/operators/repeat");
+
+Object.defineProperty(exports, "repeat", {
+  enumerable: true,
+  get: function () {
+    return _repeat.repeat;
+  }
+});
+
+var _repeatWhen = require("../internal/operators/repeatWhen");
+
+Object.defineProperty(exports, "repeatWhen", {
+  enumerable: true,
+  get: function () {
+    return _repeatWhen.repeatWhen;
+  }
+});
+
+var _retry = require("../internal/operators/retry");
+
+Object.defineProperty(exports, "retry", {
+  enumerable: true,
+  get: function () {
+    return _retry.retry;
+  }
+});
+
+var _retryWhen = require("../internal/operators/retryWhen");
+
+Object.defineProperty(exports, "retryWhen", {
+  enumerable: true,
+  get: function () {
+    return _retryWhen.retryWhen;
+  }
+});
+
+var _refCount = require("../internal/operators/refCount");
+
+Object.defineProperty(exports, "refCount", {
+  enumerable: true,
+  get: function () {
+    return _refCount.refCount;
+  }
+});
+
+var _sample = require("../internal/operators/sample");
+
+Object.defineProperty(exports, "sample", {
+  enumerable: true,
+  get: function () {
+    return _sample.sample;
+  }
+});
+
+var _sampleTime = require("../internal/operators/sampleTime");
+
+Object.defineProperty(exports, "sampleTime", {
+  enumerable: true,
+  get: function () {
+    return _sampleTime.sampleTime;
+  }
+});
+
+var _scan = require("../internal/operators/scan");
+
+Object.defineProperty(exports, "scan", {
+  enumerable: true,
+  get: function () {
+    return _scan.scan;
+  }
+});
+
+var _sequenceEqual = require("../internal/operators/sequenceEqual");
+
+Object.defineProperty(exports, "sequenceEqual", {
+  enumerable: true,
+  get: function () {
+    return _sequenceEqual.sequenceEqual;
+  }
+});
+
+var _share = require("../internal/operators/share");
+
+Object.defineProperty(exports, "share", {
+  enumerable: true,
+  get: function () {
+    return _share.share;
+  }
+});
+
+var _shareReplay = require("../internal/operators/shareReplay");
+
+Object.defineProperty(exports, "shareReplay", {
+  enumerable: true,
+  get: function () {
+    return _shareReplay.shareReplay;
+  }
+});
+
+var _single = require("../internal/operators/single");
+
+Object.defineProperty(exports, "single", {
+  enumerable: true,
+  get: function () {
+    return _single.single;
+  }
+});
+
+var _skip = require("../internal/operators/skip");
+
+Object.defineProperty(exports, "skip", {
+  enumerable: true,
+  get: function () {
+    return _skip.skip;
+  }
+});
+
+var _skipLast = require("../internal/operators/skipLast");
+
+Object.defineProperty(exports, "skipLast", {
+  enumerable: true,
+  get: function () {
+    return _skipLast.skipLast;
+  }
+});
+
+var _skipUntil = require("../internal/operators/skipUntil");
+
+Object.defineProperty(exports, "skipUntil", {
+  enumerable: true,
+  get: function () {
+    return _skipUntil.skipUntil;
+  }
+});
+
+var _skipWhile = require("../internal/operators/skipWhile");
+
+Object.defineProperty(exports, "skipWhile", {
+  enumerable: true,
+  get: function () {
+    return _skipWhile.skipWhile;
+  }
+});
+
+var _startWith = require("../internal/operators/startWith");
+
+Object.defineProperty(exports, "startWith", {
+  enumerable: true,
+  get: function () {
+    return _startWith.startWith;
+  }
+});
+
+var _subscribeOn = require("../internal/operators/subscribeOn");
+
+Object.defineProperty(exports, "subscribeOn", {
+  enumerable: true,
+  get: function () {
+    return _subscribeOn.subscribeOn;
+  }
+});
+
+var _switchAll = require("../internal/operators/switchAll");
+
+Object.defineProperty(exports, "switchAll", {
+  enumerable: true,
+  get: function () {
+    return _switchAll.switchAll;
+  }
+});
+
+var _switchMap = require("../internal/operators/switchMap");
+
+Object.defineProperty(exports, "switchMap", {
+  enumerable: true,
+  get: function () {
+    return _switchMap.switchMap;
+  }
+});
+
+var _switchMapTo = require("../internal/operators/switchMapTo");
+
+Object.defineProperty(exports, "switchMapTo", {
+  enumerable: true,
+  get: function () {
+    return _switchMapTo.switchMapTo;
+  }
+});
+
+var _switchScan = require("../internal/operators/switchScan");
+
+Object.defineProperty(exports, "switchScan", {
+  enumerable: true,
+  get: function () {
+    return _switchScan.switchScan;
+  }
+});
+
+var _take = require("../internal/operators/take");
+
+Object.defineProperty(exports, "take", {
+  enumerable: true,
+  get: function () {
+    return _take.take;
+  }
+});
+
+var _takeLast = require("../internal/operators/takeLast");
+
+Object.defineProperty(exports, "takeLast", {
+  enumerable: true,
+  get: function () {
+    return _takeLast.takeLast;
+  }
+});
+
+var _takeUntil = require("../internal/operators/takeUntil");
+
+Object.defineProperty(exports, "takeUntil", {
+  enumerable: true,
+  get: function () {
+    return _takeUntil.takeUntil;
+  }
+});
+
+var _takeWhile = require("../internal/operators/takeWhile");
+
+Object.defineProperty(exports, "takeWhile", {
+  enumerable: true,
+  get: function () {
+    return _takeWhile.takeWhile;
+  }
+});
+
+var _tap = require("../internal/operators/tap");
+
+Object.defineProperty(exports, "tap", {
+  enumerable: true,
+  get: function () {
+    return _tap.tap;
+  }
+});
+
+var _throttle = require("../internal/operators/throttle");
+
+Object.defineProperty(exports, "throttle", {
+  enumerable: true,
+  get: function () {
+    return _throttle.throttle;
+  }
+});
+
+var _throttleTime = require("../internal/operators/throttleTime");
+
+Object.defineProperty(exports, "throttleTime", {
+  enumerable: true,
+  get: function () {
+    return _throttleTime.throttleTime;
+  }
+});
+
+var _throwIfEmpty = require("../internal/operators/throwIfEmpty");
+
+Object.defineProperty(exports, "throwIfEmpty", {
+  enumerable: true,
+  get: function () {
+    return _throwIfEmpty.throwIfEmpty;
+  }
+});
+
+var _timeInterval = require("../internal/operators/timeInterval");
+
+Object.defineProperty(exports, "timeInterval", {
+  enumerable: true,
+  get: function () {
+    return _timeInterval.timeInterval;
+  }
+});
+
+var _timeout = require("../internal/operators/timeout");
+
+Object.defineProperty(exports, "timeout", {
+  enumerable: true,
+  get: function () {
+    return _timeout.timeout;
+  }
+});
+
+var _timeoutWith = require("../internal/operators/timeoutWith");
+
+Object.defineProperty(exports, "timeoutWith", {
+  enumerable: true,
+  get: function () {
+    return _timeoutWith.timeoutWith;
+  }
+});
+
+var _timestamp = require("../internal/operators/timestamp");
+
+Object.defineProperty(exports, "timestamp", {
+  enumerable: true,
+  get: function () {
+    return _timestamp.timestamp;
+  }
+});
+
+var _toArray = require("../internal/operators/toArray");
+
+Object.defineProperty(exports, "toArray", {
+  enumerable: true,
+  get: function () {
+    return _toArray.toArray;
+  }
+});
+
+var _window = require("../internal/operators/window");
+
+Object.defineProperty(exports, "window", {
+  enumerable: true,
+  get: function () {
+    return _window.window;
+  }
+});
+
+var _windowCount = require("../internal/operators/windowCount");
+
+Object.defineProperty(exports, "windowCount", {
+  enumerable: true,
+  get: function () {
+    return _windowCount.windowCount;
+  }
+});
+
+var _windowTime = require("../internal/operators/windowTime");
+
+Object.defineProperty(exports, "windowTime", {
+  enumerable: true,
+  get: function () {
+    return _windowTime.windowTime;
+  }
+});
+
+var _windowToggle = require("../internal/operators/windowToggle");
+
+Object.defineProperty(exports, "windowToggle", {
+  enumerable: true,
+  get: function () {
+    return _windowToggle.windowToggle;
+  }
+});
+
+var _windowWhen = require("../internal/operators/windowWhen");
+
+Object.defineProperty(exports, "windowWhen", {
+  enumerable: true,
+  get: function () {
+    return _windowWhen.windowWhen;
+  }
+});
+
+var _withLatestFrom = require("../internal/operators/withLatestFrom");
+
+Object.defineProperty(exports, "withLatestFrom", {
+  enumerable: true,
+  get: function () {
+    return _withLatestFrom.withLatestFrom;
+  }
+});
+
+var _zip = require("../internal/operators/zip");
+
+Object.defineProperty(exports, "zip", {
+  enumerable: true,
+  get: function () {
+    return _zip.zip;
+  }
+});
+
+var _zipAll = require("../internal/operators/zipAll");
+
+Object.defineProperty(exports, "zipAll", {
+  enumerable: true,
+  get: function () {
+    return _zipAll.zipAll;
+  }
+});
+
+var _zipWith = require("../internal/operators/zipWith");
+
+Object.defineProperty(exports, "zipWith", {
+  enumerable: true,
+  get: function () {
+    return _zipWith.zipWith;
+  }
+});
+},{"../internal/operators/audit":65,"../internal/operators/auditTime":64,"../internal/operators/buffer":66,"../internal/operators/bufferCount":69,"../internal/operators/bufferTime":70,"../internal/operators/bufferToggle":67,"../internal/operators/bufferWhen":71,"../internal/operators/catchError":72,"../internal/operators/combineAll":74,"../internal/operators/combineLatestAll":73,"../internal/operators/combineLatest":215,"../internal/operators/combineLatestWith":77,"../internal/operators/concat":217,"../internal/operators/concatAll":75,"../internal/operators/concatMap":76,"../internal/operators/concatMapTo":82,"../internal/operators/concatWith":78,"../internal/operators/connect":80,"../internal/operators/count":79,"../internal/operators/debounce":81,"../internal/operators/debounceTime":85,"../internal/operators/defaultIfEmpty":83,"../internal/operators/delay":86,"../internal/operators/delayWhen":84,"../internal/operators/dematerialize":90,"../internal/operators/distinct":87,"../internal/operators/distinctUntilChanged":88,"../internal/operators/distinctUntilKeyChanged":89,"../internal/operators/elementAt":92,"../internal/operators/endWith":91,"../internal/operators/every":94,"../internal/operators/exhaust":93,"../internal/operators/exhaustAll":95,"../internal/operators/exhaustMap":98,"../internal/operators/expand":97,"../internal/operators/filter":100,"../internal/operators/finalize":102,"../internal/operators/find":96,"../internal/operators/findIndex":99,"../internal/operators/first":101,"../internal/operators/groupBy":104,"../internal/operators/ignoreElements":103,"../internal/operators/isEmpty":105,"../internal/operators/last":107,"../internal/operators/map":106,"../internal/operators/mapTo":108,"../internal/operators/materialize":109,"../internal/operators/max":112,"../internal/operators/merge":219,"../internal/operators/mergeAll":111,"../internal/operators/flatMap":110,"../internal/operators/mergeMap":114,"../internal/operators/mergeMapTo":113,"../internal/operators/mergeScan":115,"../internal/operators/mergeWith":116,"../internal/operators/min":120,"../internal/operators/multicast":117,"../internal/operators/observeOn":119,"../internal/operators/onErrorResumeNext":201,"../internal/operators/pairwise":121,"../internal/operators/partition":232,"../internal/operators/pluck":118,"../internal/operators/publish":122,"../internal/operators/publishBehavior":123,"../internal/operators/publishLast":126,"../internal/operators/publishReplay":125,"../internal/operators/race":233,"../internal/operators/raceWith":128,"../internal/operators/reduce":124,"../internal/operators/repeat":129,"../internal/operators/repeatWhen":127,"../internal/operators/retry":130,"../internal/operators/retryWhen":133,"../internal/operators/refCount":132,"../internal/operators/sample":131,"../internal/operators/sampleTime":137,"../internal/operators/scan":134,"../internal/operators/sequenceEqual":136,"../internal/operators/share":135,"../internal/operators/shareReplay":138,"../internal/operators/single":140,"../internal/operators/skip":141,"../internal/operators/skipLast":139,"../internal/operators/skipUntil":143,"../internal/operators/skipWhile":142,"../internal/operators/startWith":145,"../internal/operators/subscribeOn":146,"../internal/operators/switchAll":144,"../internal/operators/switchMap":149,"../internal/operators/switchMapTo":147,"../internal/operators/switchScan":148,"../internal/operators/take":151,"../internal/operators/takeLast":152,"../internal/operators/takeUntil":154,"../internal/operators/takeWhile":150,"../internal/operators/tap":153,"../internal/operators/throttle":155,"../internal/operators/throttleTime":157,"../internal/operators/throwIfEmpty":156,"../internal/operators/timeInterval":159,"../internal/operators/timeout":42,"../internal/operators/timeoutWith":164,"../internal/operators/timestamp":158,"../internal/operators/toArray":163,"../internal/operators/window":161,"../internal/operators/windowCount":160,"../internal/operators/windowTime":162,"../internal/operators/windowToggle":165,"../internal/operators/windowWhen":166,"../internal/operators/withLatestFrom":168,"../internal/operators/zip":221,"../internal/operators/zipAll":167,"../internal/operators/zipWith":170}],2:[function(require,module,exports) {
 "use strict";
 
 var _rxjs = require("rxjs");
 
-const observable = (0, _rxjs.from)(fetch('https://jsonplaceholder.typicode.com/todos/1'));
+var _operators = require("rxjs/operators");
+
+const observable = (0, _rxjs.of)(1, 2, 3, 4, 5).pipe((0, _operators.map)(value => `$${value}`));
 
 const subscription = observable.subscribe({
   next: value => console.log(value),
   complete: () => console.log("complete")
 });
 console.log("hello");
-},{"rxjs":6}],0:[function(require,module,exports) {
+},{"rxjs":6,"rxjs/operators":231}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
