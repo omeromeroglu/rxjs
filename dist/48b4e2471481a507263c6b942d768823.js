@@ -10215,7 +10215,7 @@ Object.defineProperty(exports, "zipWith", {
 
 var _rxjs = require("rxjs");
 
-const observable = new _rxjs.timer(0, 1000);
+const observable = new _rxjs.fromEvent(document, "click");
 
 const subscription = observable.subscribe(console.log);
 },{"rxjs":6}],0:[function(require,module,exports) {
