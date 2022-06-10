@@ -1,18 +1,19 @@
-import { interval} from "rxjs"
-import { take ,reduce ,scan,tap} from "rxjs/operators"
+import { fromEvent , interval } from "rxjs"
+import { map, mergeMap,take } from "rxjs/operators"
+import { ajax } from "rxjs/ajax"
 
-const observable =  interval(500).pipe(
-    take(5),
-    tap(x => console.log(x)),
-    reduce(
-        (acc,val) => acc + val,
-        0
+const button = document.querySelector("#btn")
+const observable = fromEvent(button, "click").pipe(
+  mergeMap(() => {
+    return interval(1000).pipe(
+        take(5)
     )
+  })
+  
 )
 
-
 const subscription = observable.subscribe({
-  next (value) {
-    console.log(value)
-    }
+  next(value) {
+     console.log(value)
+  },
 })

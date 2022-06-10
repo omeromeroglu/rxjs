@@ -11273,21 +11273,441 @@ Object.defineProperty(exports, "zipWith", {
     return _zipWith.zipWith;
   }
 });
-},{"../internal/operators/audit":66,"../internal/operators/auditTime":67,"../internal/operators/buffer":65,"../internal/operators/bufferCount":68,"../internal/operators/bufferTime":70,"../internal/operators/bufferToggle":69,"../internal/operators/bufferWhen":71,"../internal/operators/catchError":72,"../internal/operators/combineAll":73,"../internal/operators/combineLatestAll":75,"../internal/operators/combineLatest":215,"../internal/operators/combineLatestWith":74,"../internal/operators/concat":216,"../internal/operators/concatAll":79,"../internal/operators/concatMap":76,"../internal/operators/concatMapTo":77,"../internal/operators/concatWith":78,"../internal/operators/connect":80,"../internal/operators/count":82,"../internal/operators/debounce":81,"../internal/operators/debounceTime":84,"../internal/operators/defaultIfEmpty":83,"../internal/operators/delay":86,"../internal/operators/delayWhen":85,"../internal/operators/dematerialize":87,"../internal/operators/distinct":88,"../internal/operators/distinctUntilChanged":89,"../internal/operators/distinctUntilKeyChanged":91,"../internal/operators/elementAt":92,"../internal/operators/endWith":90,"../internal/operators/every":93,"../internal/operators/exhaust":94,"../internal/operators/exhaustAll":95,"../internal/operators/exhaustMap":98,"../internal/operators/expand":97,"../internal/operators/filter":99,"../internal/operators/finalize":96,"../internal/operators/find":101,"../internal/operators/findIndex":102,"../internal/operators/first":100,"../internal/operators/groupBy":103,"../internal/operators/ignoreElements":104,"../internal/operators/isEmpty":105,"../internal/operators/last":106,"../internal/operators/map":107,"../internal/operators/mapTo":108,"../internal/operators/materialize":109,"../internal/operators/max":111,"../internal/operators/merge":219,"../internal/operators/mergeAll":110,"../internal/operators/flatMap":113,"../internal/operators/mergeMap":112,"../internal/operators/mergeMapTo":114,"../internal/operators/mergeScan":116,"../internal/operators/mergeWith":119,"../internal/operators/min":126,"../internal/operators/multicast":115,"../internal/operators/observeOn":118,"../internal/operators/onErrorResumeNext":200,"../internal/operators/pairwise":117,"../internal/operators/partition":230,"../internal/operators/pluck":120,"../internal/operators/publish":121,"../internal/operators/publishBehavior":122,"../internal/operators/publishLast":123,"../internal/operators/publishReplay":125,"../internal/operators/race":231,"../internal/operators/raceWith":124,"../internal/operators/reduce":128,"../internal/operators/repeat":127,"../internal/operators/repeatWhen":129,"../internal/operators/retry":130,"../internal/operators/retryWhen":131,"../internal/operators/refCount":133,"../internal/operators/sample":132,"../internal/operators/sampleTime":134,"../internal/operators/scan":135,"../internal/operators/sequenceEqual":136,"../internal/operators/share":137,"../internal/operators/shareReplay":140,"../internal/operators/single":138,"../internal/operators/skip":139,"../internal/operators/skipLast":141,"../internal/operators/skipUntil":142,"../internal/operators/skipWhile":143,"../internal/operators/startWith":145,"../internal/operators/subscribeOn":144,"../internal/operators/switchAll":147,"../internal/operators/switchMap":146,"../internal/operators/switchMapTo":148,"../internal/operators/switchScan":149,"../internal/operators/take":150,"../internal/operators/takeLast":151,"../internal/operators/takeUntil":152,"../internal/operators/takeWhile":153,"../internal/operators/tap":156,"../internal/operators/throttle":154,"../internal/operators/throttleTime":155,"../internal/operators/throwIfEmpty":157,"../internal/operators/timeInterval":159,"../internal/operators/timeout":36,"../internal/operators/timeoutWith":160,"../internal/operators/timestamp":158,"../internal/operators/toArray":161,"../internal/operators/window":162,"../internal/operators/windowCount":163,"../internal/operators/windowTime":164,"../internal/operators/windowToggle":166,"../internal/operators/windowWhen":165,"../internal/operators/withLatestFrom":167,"../internal/operators/zip":221,"../internal/operators/zipAll":168,"../internal/operators/zipWith":169}],3:[function(require,module,exports) {
+},{"../internal/operators/audit":66,"../internal/operators/auditTime":67,"../internal/operators/buffer":65,"../internal/operators/bufferCount":68,"../internal/operators/bufferTime":70,"../internal/operators/bufferToggle":69,"../internal/operators/bufferWhen":71,"../internal/operators/catchError":72,"../internal/operators/combineAll":73,"../internal/operators/combineLatestAll":75,"../internal/operators/combineLatest":215,"../internal/operators/combineLatestWith":74,"../internal/operators/concat":216,"../internal/operators/concatAll":79,"../internal/operators/concatMap":76,"../internal/operators/concatMapTo":77,"../internal/operators/concatWith":78,"../internal/operators/connect":80,"../internal/operators/count":82,"../internal/operators/debounce":81,"../internal/operators/debounceTime":84,"../internal/operators/defaultIfEmpty":83,"../internal/operators/delay":86,"../internal/operators/delayWhen":85,"../internal/operators/dematerialize":87,"../internal/operators/distinct":88,"../internal/operators/distinctUntilChanged":89,"../internal/operators/distinctUntilKeyChanged":91,"../internal/operators/elementAt":92,"../internal/operators/endWith":90,"../internal/operators/every":93,"../internal/operators/exhaust":94,"../internal/operators/exhaustAll":95,"../internal/operators/exhaustMap":98,"../internal/operators/expand":97,"../internal/operators/filter":99,"../internal/operators/finalize":96,"../internal/operators/find":101,"../internal/operators/findIndex":102,"../internal/operators/first":100,"../internal/operators/groupBy":103,"../internal/operators/ignoreElements":104,"../internal/operators/isEmpty":105,"../internal/operators/last":106,"../internal/operators/map":107,"../internal/operators/mapTo":108,"../internal/operators/materialize":109,"../internal/operators/max":111,"../internal/operators/merge":219,"../internal/operators/mergeAll":110,"../internal/operators/flatMap":113,"../internal/operators/mergeMap":112,"../internal/operators/mergeMapTo":114,"../internal/operators/mergeScan":116,"../internal/operators/mergeWith":119,"../internal/operators/min":126,"../internal/operators/multicast":115,"../internal/operators/observeOn":118,"../internal/operators/onErrorResumeNext":200,"../internal/operators/pairwise":117,"../internal/operators/partition":230,"../internal/operators/pluck":120,"../internal/operators/publish":121,"../internal/operators/publishBehavior":122,"../internal/operators/publishLast":123,"../internal/operators/publishReplay":125,"../internal/operators/race":231,"../internal/operators/raceWith":124,"../internal/operators/reduce":128,"../internal/operators/repeat":127,"../internal/operators/repeatWhen":129,"../internal/operators/retry":130,"../internal/operators/retryWhen":131,"../internal/operators/refCount":133,"../internal/operators/sample":132,"../internal/operators/sampleTime":134,"../internal/operators/scan":135,"../internal/operators/sequenceEqual":136,"../internal/operators/share":137,"../internal/operators/shareReplay":140,"../internal/operators/single":138,"../internal/operators/skip":139,"../internal/operators/skipLast":141,"../internal/operators/skipUntil":142,"../internal/operators/skipWhile":143,"../internal/operators/startWith":145,"../internal/operators/subscribeOn":144,"../internal/operators/switchAll":147,"../internal/operators/switchMap":146,"../internal/operators/switchMapTo":148,"../internal/operators/switchScan":149,"../internal/operators/take":150,"../internal/operators/takeLast":151,"../internal/operators/takeUntil":152,"../internal/operators/takeWhile":153,"../internal/operators/tap":156,"../internal/operators/throttle":154,"../internal/operators/throttleTime":155,"../internal/operators/throwIfEmpty":157,"../internal/operators/timeInterval":159,"../internal/operators/timeout":36,"../internal/operators/timeoutWith":160,"../internal/operators/timestamp":158,"../internal/operators/toArray":161,"../internal/operators/window":162,"../internal/operators/windowCount":163,"../internal/operators/windowTime":164,"../internal/operators/windowToggle":166,"../internal/operators/windowWhen":165,"../internal/operators/withLatestFrom":167,"../internal/operators/zip":221,"../internal/operators/zipAll":168,"../internal/operators/zipWith":169}],238:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getXHRResponse = getXHRResponse;
+function getXHRResponse(xhr) {
+  switch (xhr.responseType) {
+    case 'json':
+      {
+        if ('response' in xhr) {
+          return xhr.response;
+        } else {
+          var ieXHR = xhr;
+          return JSON.parse(ieXHR.responseText);
+        }
+      }
+    case 'document':
+      return xhr.responseXML;
+    case 'text':
+    default:
+      {
+        if ('response' in xhr) {
+          return xhr.response;
+        } else {
+          var ieXHR = xhr;
+          return ieXHR.responseText;
+        }
+      }
+  }
+}
+//# sourceMappingURL=getXHRResponse.js.map
+},{}],237:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AjaxResponse = undefined;
+
+var _getXHRResponse = require("./getXHRResponse");
+
+var AjaxResponse = function () {
+  function AjaxResponse(originalEvent, xhr, request, type) {
+    if (type === void 0) {
+      type = 'download_load';
+    }
+    this.originalEvent = originalEvent;
+    this.xhr = xhr;
+    this.request = request;
+    this.type = type;
+    var status = xhr.status,
+        responseType = xhr.responseType;
+    this.status = status !== null && status !== void 0 ? status : 0;
+    this.responseType = responseType !== null && responseType !== void 0 ? responseType : '';
+    var allHeaders = xhr.getAllResponseHeaders();
+    this.responseHeaders = allHeaders ? allHeaders.split('\n').reduce(function (headers, line) {
+      var index = line.indexOf(': ');
+      headers[line.slice(0, index)] = line.slice(index + 2);
+      return headers;
+    }, {}) : {};
+    this.response = (0, _getXHRResponse.getXHRResponse)(xhr);
+    var loaded = originalEvent.loaded,
+        total = originalEvent.total;
+    this.loaded = loaded;
+    this.total = total;
+  }
+  return AjaxResponse;
+}();
+exports.AjaxResponse = AjaxResponse;
+//# sourceMappingURL=AjaxResponse.js.map
+},{"./getXHRResponse":238}],236:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AjaxTimeoutError = exports.AjaxError = undefined;
+
+var _getXHRResponse = require("./getXHRResponse");
+
+var _createErrorClass = require("../util/createErrorClass");
+
+var AjaxError = exports.AjaxError = (0, _createErrorClass.createErrorClass)(function (_super) {
+  return function AjaxErrorImpl(message, xhr, request) {
+    this.message = message;
+    this.name = 'AjaxError';
+    this.xhr = xhr;
+    this.request = request;
+    this.status = xhr.status;
+    this.responseType = xhr.responseType;
+    var response;
+    try {
+      response = (0, _getXHRResponse.getXHRResponse)(xhr);
+    } catch (err) {
+      response = xhr.responseText;
+    }
+    this.response = response;
+  };
+});
+var AjaxTimeoutError = exports.AjaxTimeoutError = function () {
+  function AjaxTimeoutErrorImpl(xhr, request) {
+    AjaxError.call(this, 'ajax timeout', xhr, request);
+    this.name = 'AjaxTimeoutError';
+    return this;
+  }
+  AjaxTimeoutErrorImpl.prototype = Object.create(AjaxError.prototype);
+  return AjaxTimeoutErrorImpl;
+}();
+//# sourceMappingURL=errors.js.map
+},{"./getXHRResponse":238,"../util/createErrorClass":188}],235:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ajax = undefined;
+exports.fromAjax = fromAjax;
+
+var _tslib = require("tslib");
+
+var _map = require("../operators/map");
+
+var _Observable = require("../Observable");
+
+var _AjaxResponse = require("./AjaxResponse");
+
+var _errors = require("./errors");
+
+function ajaxGet(url, headers) {
+  return ajax({ method: 'GET', url: url, headers: headers });
+}
+function ajaxPost(url, body, headers) {
+  return ajax({ method: 'POST', url: url, body: body, headers: headers });
+}
+function ajaxDelete(url, headers) {
+  return ajax({ method: 'DELETE', url: url, headers: headers });
+}
+function ajaxPut(url, body, headers) {
+  return ajax({ method: 'PUT', url: url, body: body, headers: headers });
+}
+function ajaxPatch(url, body, headers) {
+  return ajax({ method: 'PATCH', url: url, body: body, headers: headers });
+}
+var mapResponse = (0, _map.map)(function (x) {
+  return x.response;
+});
+function ajaxGetJSON(url, headers) {
+  return mapResponse(ajax({
+    method: 'GET',
+    url: url,
+    headers: headers
+  }));
+}
+var ajax = exports.ajax = function () {
+  var create = function (urlOrConfig) {
+    var config = typeof urlOrConfig === 'string' ? {
+      url: urlOrConfig
+    } : urlOrConfig;
+    return fromAjax(config);
+  };
+  create.get = ajaxGet;
+  create.post = ajaxPost;
+  create.delete = ajaxDelete;
+  create.put = ajaxPut;
+  create.patch = ajaxPatch;
+  create.getJSON = ajaxGetJSON;
+  return create;
+}();
+var UPLOAD = 'upload';
+var DOWNLOAD = 'download';
+var LOADSTART = 'loadstart';
+var PROGRESS = 'progress';
+var LOAD = 'load';
+function fromAjax(init) {
+  return new _Observable.Observable(function (destination) {
+    var _a, _b;
+    var config = (0, _tslib.__assign)({ async: true, crossDomain: false, withCredentials: false, method: 'GET', timeout: 0, responseType: 'json' }, init);
+    var queryParams = config.queryParams,
+        configuredBody = config.body,
+        configuredHeaders = config.headers;
+    var url = config.url;
+    if (!url) {
+      throw new TypeError('url is required');
+    }
+    if (queryParams) {
+      var searchParams_1;
+      if (url.includes('?')) {
+        var parts = url.split('?');
+        if (2 < parts.length) {
+          throw new TypeError('invalid url');
+        }
+        searchParams_1 = new URLSearchParams(parts[1]);
+        new URLSearchParams(queryParams).forEach(function (value, key) {
+          return searchParams_1.set(key, value);
+        });
+        url = parts[0] + '?' + searchParams_1;
+      } else {
+        searchParams_1 = new URLSearchParams(queryParams);
+        url = url + '?' + searchParams_1;
+      }
+    }
+    var headers = {};
+    if (configuredHeaders) {
+      for (var key in configuredHeaders) {
+        if (configuredHeaders.hasOwnProperty(key)) {
+          headers[key.toLowerCase()] = configuredHeaders[key];
+        }
+      }
+    }
+    var crossDomain = config.crossDomain;
+    if (!crossDomain && !('x-requested-with' in headers)) {
+      headers['x-requested-with'] = 'XMLHttpRequest';
+    }
+    var withCredentials = config.withCredentials,
+        xsrfCookieName = config.xsrfCookieName,
+        xsrfHeaderName = config.xsrfHeaderName;
+    if ((withCredentials || !crossDomain) && xsrfCookieName && xsrfHeaderName) {
+      var xsrfCookie = (_b = (_a = document === null || document === void 0 ? void 0 : document.cookie.match(new RegExp("(^|;\\s*)(" + xsrfCookieName + ")=([^;]*)"))) === null || _a === void 0 ? void 0 : _a.pop()) !== null && _b !== void 0 ? _b : '';
+      if (xsrfCookie) {
+        headers[xsrfHeaderName] = xsrfCookie;
+      }
+    }
+    var body = extractContentTypeAndMaybeSerializeBody(configuredBody, headers);
+    var _request = (0, _tslib.__assign)((0, _tslib.__assign)({}, config), { url: url,
+      headers: headers,
+      body: body });
+    var xhr;
+    xhr = init.createXHR ? init.createXHR() : new XMLHttpRequest();
+    {
+      var progressSubscriber_1 = init.progressSubscriber,
+          _c = init.includeDownloadProgress,
+          includeDownloadProgress = _c === void 0 ? false : _c,
+          _d = init.includeUploadProgress,
+          includeUploadProgress = _d === void 0 ? false : _d;
+      var addErrorEvent = function (type, errorFactory) {
+        xhr.addEventListener(type, function () {
+          var _a;
+          var error = errorFactory();
+          (_a = progressSubscriber_1 === null || progressSubscriber_1 === void 0 ? void 0 : progressSubscriber_1.error) === null || _a === void 0 ? void 0 : _a.call(progressSubscriber_1, error);
+          destination.error(error);
+        });
+      };
+      addErrorEvent('timeout', function () {
+        return new _errors.AjaxTimeoutError(xhr, _request);
+      });
+      addErrorEvent('abort', function () {
+        return new _errors.AjaxError('aborted', xhr, _request);
+      });
+      var createResponse_1 = function (direction, event) {
+        return new _AjaxResponse.AjaxResponse(event, xhr, _request, direction + "_" + event.type);
+      };
+      var addProgressEvent_1 = function (target, type, direction) {
+        target.addEventListener(type, function (event) {
+          destination.next(createResponse_1(direction, event));
+        });
+      };
+      if (includeUploadProgress) {
+        [LOADSTART, PROGRESS, LOAD].forEach(function (type) {
+          return addProgressEvent_1(xhr.upload, type, UPLOAD);
+        });
+      }
+      if (progressSubscriber_1) {
+        [LOADSTART, PROGRESS].forEach(function (type) {
+          return xhr.upload.addEventListener(type, function (e) {
+            var _a;return (_a = progressSubscriber_1 === null || progressSubscriber_1 === void 0 ? void 0 : progressSubscriber_1.next) === null || _a === void 0 ? void 0 : _a.call(progressSubscriber_1, e);
+          });
+        });
+      }
+      if (includeDownloadProgress) {
+        [LOADSTART, PROGRESS].forEach(function (type) {
+          return addProgressEvent_1(xhr, type, DOWNLOAD);
+        });
+      }
+      var emitError_1 = function (status) {
+        var msg = 'ajax error' + (status ? ' ' + status : '');
+        destination.error(new _errors.AjaxError(msg, xhr, _request));
+      };
+      xhr.addEventListener('error', function (e) {
+        var _a;
+        (_a = progressSubscriber_1 === null || progressSubscriber_1 === void 0 ? void 0 : progressSubscriber_1.error) === null || _a === void 0 ? void 0 : _a.call(progressSubscriber_1, e);
+        emitError_1();
+      });
+      xhr.addEventListener(LOAD, function (event) {
+        var _a, _b;
+        var status = xhr.status;
+        if (status < 400) {
+          (_a = progressSubscriber_1 === null || progressSubscriber_1 === void 0 ? void 0 : progressSubscriber_1.complete) === null || _a === void 0 ? void 0 : _a.call(progressSubscriber_1);
+          var response = void 0;
+          try {
+            response = createResponse_1(DOWNLOAD, event);
+          } catch (err) {
+            destination.error(err);
+            return;
+          }
+          destination.next(response);
+          destination.complete();
+        } else {
+          (_b = progressSubscriber_1 === null || progressSubscriber_1 === void 0 ? void 0 : progressSubscriber_1.error) === null || _b === void 0 ? void 0 : _b.call(progressSubscriber_1, event);
+          emitError_1(status);
+        }
+      });
+    }
+    var user = _request.user,
+        method = _request.method,
+        async = _request.async;
+    if (user) {
+      xhr.open(method, url, async, user, _request.password);
+    } else {
+      xhr.open(method, url, async);
+    }
+    if (async) {
+      xhr.timeout = _request.timeout;
+      xhr.responseType = _request.responseType;
+    }
+    if ('withCredentials' in xhr) {
+      xhr.withCredentials = _request.withCredentials;
+    }
+    for (var key in headers) {
+      if (headers.hasOwnProperty(key)) {
+        xhr.setRequestHeader(key, headers[key]);
+      }
+    }
+    if (body) {
+      xhr.send(body);
+    } else {
+      xhr.send();
+    }
+    return function () {
+      if (xhr && xhr.readyState !== 4) {
+        xhr.abort();
+      }
+    };
+  });
+}
+function extractContentTypeAndMaybeSerializeBody(body, headers) {
+  var _a;
+  if (!body || typeof body === 'string' || isFormData(body) || isURLSearchParams(body) || isArrayBuffer(body) || isFile(body) || isBlob(body) || isReadableStream(body)) {
+    return body;
+  }
+  if (isArrayBufferView(body)) {
+    return body.buffer;
+  }
+  if (typeof body === 'object') {
+    headers['content-type'] = (_a = headers['content-type']) !== null && _a !== void 0 ? _a : 'application/json;charset=utf-8';
+    return JSON.stringify(body);
+  }
+  throw new TypeError('Unknown body type');
+}
+var _toString = Object.prototype.toString;
+function toStringCheck(obj, name) {
+  return _toString.call(obj) === "[object " + name + "]";
+}
+function isArrayBuffer(body) {
+  return toStringCheck(body, 'ArrayBuffer');
+}
+function isFile(body) {
+  return toStringCheck(body, 'File');
+}
+function isBlob(body) {
+  return toStringCheck(body, 'Blob');
+}
+function isArrayBufferView(body) {
+  return typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(body);
+}
+function isFormData(body) {
+  return typeof FormData !== 'undefined' && body instanceof FormData;
+}
+function isURLSearchParams(body) {
+  return typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams;
+}
+function isReadableStream(body) {
+  return typeof ReadableStream !== 'undefined' && body instanceof ReadableStream;
+}
+//# sourceMappingURL=ajax.js.map
+},{"tslib":233,"../operators/map":107,"../Observable":8,"./AjaxResponse":237,"./errors":236}],234:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ajax = require("../internal/ajax/ajax");
+
+Object.defineProperty(exports, "ajax", {
+  enumerable: true,
+  get: function () {
+    return _ajax.ajax;
+  }
+});
+
+var _errors = require("../internal/ajax/errors");
+
+Object.defineProperty(exports, "AjaxError", {
+  enumerable: true,
+  get: function () {
+    return _errors.AjaxError;
+  }
+});
+Object.defineProperty(exports, "AjaxTimeoutError", {
+  enumerable: true,
+  get: function () {
+    return _errors.AjaxTimeoutError;
+  }
+});
+
+var _AjaxResponse = require("../internal/ajax/AjaxResponse");
+
+Object.defineProperty(exports, "AjaxResponse", {
+  enumerable: true,
+  get: function () {
+    return _AjaxResponse.AjaxResponse;
+  }
+});
+},{"../internal/ajax/ajax":235,"../internal/ajax/errors":236,"../internal/ajax/AjaxResponse":237}],3:[function(require,module,exports) {
 "use strict";
 
 var _rxjs = require("rxjs");
 
 var _operators = require("rxjs/operators");
 
-const observable = (0, _rxjs.interval)(500).pipe((0, _operators.take)(5), (0, _operators.tap)(x => console.log(x)), (0, _operators.reduce)((acc, val) => acc + val, 0));
+var _ajax = require("rxjs/ajax");
+
+const button = document.querySelector("#btn");
+const observable = (0, _rxjs.fromEvent)(button, "click").pipe((0, _operators.mergeMap)(() => {
+  return (0, _rxjs.interval)(1000).pipe((0, _operators.take)(5));
+}));
 
 const subscription = observable.subscribe({
   next(value) {
     console.log(value);
   }
 });
-},{"rxjs":6,"rxjs/operators":224}],0:[function(require,module,exports) {
+},{"rxjs":6,"rxjs/operators":224,"rxjs/ajax":234}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
