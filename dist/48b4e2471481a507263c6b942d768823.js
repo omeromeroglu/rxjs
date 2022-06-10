@@ -11280,7 +11280,7 @@ var _rxjs = require("rxjs");
 
 var _operators = require("rxjs/operators");
 
-const observable = (0, _rxjs.fromEvent)(document, "keydown").pipe((0, _operators.pluck)("code"));
+const observable = (0, _rxjs.fromEvent)(document, "keydown").pipe((0, _operators.pluck)("code"), (0, _operators.filter)(code => code === "Space"));
 
 const subscription = observable.subscribe({
   next(value) {
