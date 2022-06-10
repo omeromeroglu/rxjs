@@ -11280,7 +11280,7 @@ var _rxjs = require("rxjs");
 
 var _operators = require("rxjs/operators");
 
-const observable = (0, _rxjs.of)(1, 2, 3, 4, 5).pipe((0, _operators.reduce)((acc, val) => acc + val, 0));
+const observable = (0, _rxjs.interval)(500).pipe((0, _operators.take)(5), (0, _operators.scan)((acc, val) => acc + val, 0));
 
 const subscription = observable.subscribe({
   next(value) {

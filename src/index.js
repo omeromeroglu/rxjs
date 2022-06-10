@@ -1,8 +1,9 @@
-import { of,from, fromEvent } from "rxjs"
-import { map , pluck,filter ,reduce} from "rxjs/operators"
+import { interval} from "rxjs"
+import { take ,reduce ,scan} from "rxjs/operators"
 
-const observable =  of(1,2,3,4,5).pipe(
-    reduce(
+const observable =  interval(500).pipe(
+    take(5),
+    scan(
         (acc,val) => acc + val,
         0
     )
